@@ -1,0 +1,1437 @@
+{
+  "mode": "demo",
+  "fixed_campus_time": "2026-10-13T09:00:00+08:00",
+  "business_backend": "fresh in-memory Mock per case",
+  "configuration": null,
+  "grading": "结构化行为检查；不等同于全面语义质量评估",
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0
+  },
+  "cases": [
+    {
+      "case": "schedule_today",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "只读场景不请求写操作确认",
+          "passed": true
+        },
+        {
+          "check": "本轮正常结束",
+          "passed": true
+        },
+        {
+          "check": "实际调用课表工具且使用可信当天",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.01,
+      "responses": [
+        {
+          "session_id": "8511156a2caf4681b01963103fd7df83",
+          "status": "completed",
+          "answer": "【含模拟数据】\n模拟课表：\n{\"date\": \"2026-10-13\", \"courses\": [{\"course\": \"数据结构\", \"start_time\": \"2026-10-13T09:00:00+08:00\", \"end_time\": \"2026-10-13T10:00:00+08:00\"}]}",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_b812bfaa75e64d05883ff653de94cf5f",
+              "operation_id": "09dc74a8aa594cc9b31c5a5e404cdbed",
+              "arguments": {
+                "date": "2026-10-13"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-13",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-13T09:00:00+08:00",
+                      "end_time": "2026-10-13T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            }
+          ]
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "missing_date",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "只读场景不请求写操作确认",
+          "passed": true
+        },
+        {
+          "check": "本轮正常结束",
+          "passed": true
+        },
+        {
+          "check": "缺少日期时补问而不自行查询",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.004,
+      "responses": [
+        {
+          "session_id": "29eb979dbed9444ba3772481d0629205",
+          "status": "completed",
+          "answer": "【补问时间】请说明哪一天，例如今天、明天或 YYYY-MM-DD。",
+          "pending_confirmation": null,
+          "trace": []
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "study_confirm",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": true
+        },
+        {
+          "check": "预约工具正确",
+          "passed": true
+        },
+        {
+          "check": "规范化为明天下午连续两小时",
+          "passed": true
+        },
+        {
+          "check": "本次确认后不出现额外待提交动作",
+          "passed": true
+        },
+        {
+          "check": "最终状态正确",
+          "passed": true
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "前置查询齐全",
+          "passed": true
+        },
+        {
+          "check": "前置查询顺序正确",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.02,
+      "responses": [
+        {
+          "session_id": "c0bddf6088c74eee922d8665f6727e90",
+          "status": "awaiting_confirmation",
+          "answer": "请核对以下模拟操作，确认后执行：book_study_seat\n{\"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\"}",
+          "pending_confirmation": {
+            "confirmation_id": "cf90a4e29cae4720b8e3cb4a9628936d",
+            "tool_name": "book_study_seat",
+            "arguments": {
+              "start_time": "2026-10-14T14:00:00+08:00",
+              "end_time": "2026-10-14T16:00:00+08:00",
+              "seat_id": "LIB-A301-01"
+            },
+            "expires_at": "2026-10-13T09:05:00+08:00",
+            "simulated": true,
+            "message": "请核对工具名称和全部参数，确认后才执行。"
+          },
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_0ab69fdd5c9345448cd638e26a870265",
+              "operation_id": "42ef41cbde184af5b376df3d592b0b69",
+              "arguments": {
+                "date": "2026-10-14"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-14",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-14T09:00:00+08:00",
+                      "end_time": "2026-10-14T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "find_free_slots",
+              "call_id": "call_35211dc03ad0420eae907df7ad7b44ba",
+              "operation_id": "7ec70fcb0c854e108efd20110436f64f",
+              "arguments": {
+                "date": "2026-10-14",
+                "duration_minutes": 120
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "slots": [
+                    {
+                      "start_time": "2026-10-14T10:00:00+08:00",
+                      "end_time": "2026-10-14T22:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟空闲时段",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.05
+            },
+            {
+              "tool_name": "find_available_seats",
+              "call_id": "call_013acedd05854eabab6c65beb83a3596",
+              "operation_id": "24d118a7292f4a0498f10ce2b0adf3cd",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "seats": [
+                    {
+                      "seat_id": "LIB-A301-01",
+                      "location": "图书馆 A301 静音区"
+                    },
+                    {
+                      "seat_id": "LIB-A301-02",
+                      "location": "图书馆 A301 静音区"
+                    }
+                  ],
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00"
+                },
+                "message": "模拟可用座位",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            }
+          ]
+        },
+        {
+          "session_id": "c0bddf6088c74eee922d8665f6727e90",
+          "status": "completed",
+          "answer": "【含模拟数据】\n模拟预约成功，未提交学校官方系统\n{\"reservation_id\": \"RSV-0721c0b4\", \"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\", \"status\": \"active\"}",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_0ab69fdd5c9345448cd638e26a870265",
+              "operation_id": "42ef41cbde184af5b376df3d592b0b69",
+              "arguments": {
+                "date": "2026-10-14"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-14",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-14T09:00:00+08:00",
+                      "end_time": "2026-10-14T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "find_free_slots",
+              "call_id": "call_35211dc03ad0420eae907df7ad7b44ba",
+              "operation_id": "7ec70fcb0c854e108efd20110436f64f",
+              "arguments": {
+                "date": "2026-10-14",
+                "duration_minutes": 120
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "slots": [
+                    {
+                      "start_time": "2026-10-14T10:00:00+08:00",
+                      "end_time": "2026-10-14T22:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟空闲时段",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.05
+            },
+            {
+              "tool_name": "find_available_seats",
+              "call_id": "call_013acedd05854eabab6c65beb83a3596",
+              "operation_id": "24d118a7292f4a0498f10ce2b0adf3cd",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "seats": [
+                    {
+                      "seat_id": "LIB-A301-01",
+                      "location": "图书馆 A301 静音区"
+                    },
+                    {
+                      "seat_id": "LIB-A301-02",
+                      "location": "图书馆 A301 静音区"
+                    }
+                  ],
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00"
+                },
+                "message": "模拟可用座位",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "book_study_seat",
+              "call_id": "call_fa0baeeb50d9479ca4ad5295775ac82c",
+              "operation_id": "172121a06e034b949b00cc327d5a7243",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00",
+                "seat_id": "LIB-A301-01"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "reservation_id": "RSV-0721c0b4",
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00",
+                  "seat_id": "LIB-A301-01",
+                  "status": "active"
+                },
+                "message": "模拟预约成功，未提交学校官方系统",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.1
+            }
+          ]
+        }
+      ],
+      "record_count": 1
+    },
+    {
+      "case": "study_cancel",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": true
+        },
+        {
+          "check": "预约工具正确",
+          "passed": true
+        },
+        {
+          "check": "规范化为明天下午连续两小时",
+          "passed": true
+        },
+        {
+          "check": "本次确认后不出现额外待提交动作",
+          "passed": true
+        },
+        {
+          "check": "最终状态正确",
+          "passed": true
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "前置查询齐全",
+          "passed": true
+        },
+        {
+          "check": "前置查询顺序正确",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.018,
+      "responses": [
+        {
+          "session_id": "226f66e3d41349c9b3877dd96505079c",
+          "status": "awaiting_confirmation",
+          "answer": "请核对以下模拟操作，确认后执行：book_study_seat\n{\"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\"}",
+          "pending_confirmation": {
+            "confirmation_id": "f62b3bb0aaa54ac5b5e9e8611e81c686",
+            "tool_name": "book_study_seat",
+            "arguments": {
+              "start_time": "2026-10-14T14:00:00+08:00",
+              "end_time": "2026-10-14T16:00:00+08:00",
+              "seat_id": "LIB-A301-01"
+            },
+            "expires_at": "2026-10-13T09:05:00+08:00",
+            "simulated": true,
+            "message": "请核对工具名称和全部参数，确认后才执行。"
+          },
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_8cb5aca2c8bd40b281acc22f21ef9095",
+              "operation_id": "86d858145eb44a21b7c74ebc9287eb32",
+              "arguments": {
+                "date": "2026-10-14"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-14",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-14T09:00:00+08:00",
+                      "end_time": "2026-10-14T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "find_free_slots",
+              "call_id": "call_df11a719536847b0920c639399566b30",
+              "operation_id": "bd8c2d452b27481f8cd7a4b4fe13b70b",
+              "arguments": {
+                "date": "2026-10-14",
+                "duration_minutes": 120
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "slots": [
+                    {
+                      "start_time": "2026-10-14T10:00:00+08:00",
+                      "end_time": "2026-10-14T22:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟空闲时段",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.05
+            },
+            {
+              "tool_name": "find_available_seats",
+              "call_id": "call_f2c4f26f1f4c40f6b5c9c5f23577fc1e",
+              "operation_id": "02cf2bb262014ce6848cb4170a7f935b",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "seats": [
+                    {
+                      "seat_id": "LIB-A301-01",
+                      "location": "图书馆 A301 静音区"
+                    },
+                    {
+                      "seat_id": "LIB-A301-02",
+                      "location": "图书馆 A301 静音区"
+                    }
+                  ],
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00"
+                },
+                "message": "模拟可用座位",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            }
+          ]
+        },
+        {
+          "session_id": "226f66e3d41349c9b3877dd96505079c",
+          "status": "cancelled",
+          "answer": "【含模拟数据】\n本次处理已停止：已取消当前待确认操作及本轮后续步骤（USER_CANCELLED）。",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_8cb5aca2c8bd40b281acc22f21ef9095",
+              "operation_id": "86d858145eb44a21b7c74ebc9287eb32",
+              "arguments": {
+                "date": "2026-10-14"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-14",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-14T09:00:00+08:00",
+                      "end_time": "2026-10-14T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "find_free_slots",
+              "call_id": "call_df11a719536847b0920c639399566b30",
+              "operation_id": "bd8c2d452b27481f8cd7a4b4fe13b70b",
+              "arguments": {
+                "date": "2026-10-14",
+                "duration_minutes": 120
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "slots": [
+                    {
+                      "start_time": "2026-10-14T10:00:00+08:00",
+                      "end_time": "2026-10-14T22:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟空闲时段",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.05
+            },
+            {
+              "tool_name": "find_available_seats",
+              "call_id": "call_f2c4f26f1f4c40f6b5c9c5f23577fc1e",
+              "operation_id": "02cf2bb262014ce6848cb4170a7f935b",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "seats": [
+                    {
+                      "seat_id": "LIB-A301-01",
+                      "location": "图书馆 A301 静音区"
+                    },
+                    {
+                      "seat_id": "LIB-A301-02",
+                      "location": "图书馆 A301 静音区"
+                    }
+                  ],
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00"
+                },
+                "message": "模拟可用座位",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "book_study_seat",
+              "call_id": "call_1d2e393df6284f83a6f0259eeaab974d",
+              "operation_id": "a81fe9ba9b2c4d17ac334f89f97c0533",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00",
+                "seat_id": "LIB-A301-01"
+              },
+              "result": {
+                "success": false,
+                "data": {},
+                "message": "已取消当前待确认操作及本轮后续步骤",
+                "error_code": "USER_CANCELLED",
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 0,
+              "duration_ms": 0.0
+            }
+          ]
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "repair_followup",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "信息补全前不创建待提交动作",
+          "passed": true
+        },
+        {
+          "check": "信息补全前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": true
+        },
+        {
+          "check": "报修工具与位置正确",
+          "passed": true
+        },
+        {
+          "check": "保留上轮空调不制冷故障",
+          "passed": true
+        },
+        {
+          "check": "本次确认后不出现额外待提交动作",
+          "passed": true
+        },
+        {
+          "check": "最终状态正确",
+          "passed": true
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.014,
+      "responses": [
+        {
+          "session_id": "df63bacc2b544e6fbf7095d82c10138c",
+          "status": "completed",
+          "answer": "【补问报修】请提供宿舍位置，例如：3号楼502室。",
+          "pending_confirmation": null,
+          "trace": []
+        },
+        {
+          "session_id": "df63bacc2b544e6fbf7095d82c10138c",
+          "status": "awaiting_confirmation",
+          "answer": "请核对以下模拟操作，确认后执行：create_repair_ticket\n{\"location\": \"3号楼502室\", \"problem\": \"空调不制冷\"}",
+          "pending_confirmation": {
+            "confirmation_id": "7920bda4ab034a99859af08439ae8fc4",
+            "tool_name": "create_repair_ticket",
+            "arguments": {
+              "location": "3号楼502室",
+              "problem": "空调不制冷"
+            },
+            "expires_at": "2026-10-13T09:05:00+08:00",
+            "simulated": true,
+            "message": "请核对工具名称和全部参数，确认后才执行。"
+          },
+          "trace": []
+        },
+        {
+          "session_id": "df63bacc2b544e6fbf7095d82c10138c",
+          "status": "completed",
+          "answer": "【含模拟数据】\n已创建模拟工单，未通知学校维修人员\n{\"ticket_id\": \"RP-66ce480a\", \"location\": \"3号楼502室\", \"problem\": \"空调不制冷\", \"status\": \"pending\"}",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "create_repair_ticket",
+              "call_id": "call_5e3d8ff567d94e7ab2d7b2dd5a193359",
+              "operation_id": "5382293973d84cc4aa5ea7a139f99a07",
+              "arguments": {
+                "location": "3号楼502室",
+                "problem": "空调不制冷"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "ticket_id": "RP-66ce480a",
+                  "location": "3号楼502室",
+                  "problem": "空调不制冷",
+                  "status": "pending"
+                },
+                "message": "已创建模拟工单，未通知学校维修人员",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.07
+            }
+          ]
+        }
+      ],
+      "record_count": 1
+    },
+    {
+      "case": "affair_sources",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "只读场景不请求写操作确认",
+          "passed": true
+        },
+        {
+          "check": "本轮正常结束",
+          "passed": true
+        },
+        {
+          "check": "查询知识与办理要求",
+          "passed": true
+        },
+        {
+          "check": "回答引用来源",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.011,
+      "responses": [
+        {
+          "session_id": "28dc07a9c7fa4e0fa6ba033e44f64f2b",
+          "status": "completed",
+          "answer": "【含模拟数据】\n[MOCK-POLICY-001] 学生证补办演示办法（模拟资料）：准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。\n模拟材料：身份证明、遗失说明\n【补问事务】如需模拟草稿，请补充姓名、学号，并说明生成草稿。",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "search_campus_knowledge",
+              "call_id": "call_5186f0d957e64e61bb6d2edbd1bf2c25",
+              "operation_id": "663b6b55918c424eaca0025bd3a79e6b",
+              "arguments": {
+                "query": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "sources": [
+                    {
+                      "source_id": "MOCK-POLICY-001",
+                      "title": "学生证补办演示办法（模拟资料）",
+                      "content": "准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。"
+                    }
+                  ]
+                },
+                "message": "模拟知识检索结果",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "get_affair_requirements",
+              "call_id": "call_3b77781241004288bf9e27cd8b926909",
+              "operation_id": "96301c8443a64b37ac0f18f5528e5fb8",
+              "arguments": {
+                "affair_type": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "affair_type": "学生证补办",
+                  "required_fields": [
+                    "name",
+                    "student_id",
+                    "reason"
+                  ],
+                  "materials": [
+                    "身份证明",
+                    "遗失说明"
+                  ],
+                  "steps": [
+                    "准备材料",
+                    "联系学生事务中心"
+                  ]
+                },
+                "message": "模拟办理要求",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.03
+            }
+          ]
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "affair_draft",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "信息补全前不创建待提交动作",
+          "passed": true
+        },
+        {
+          "check": "信息补全前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": true
+        },
+        {
+          "check": "草稿字段正确",
+          "passed": true
+        },
+        {
+          "check": "本次确认后不出现额外待提交动作",
+          "passed": true
+        },
+        {
+          "check": "最终状态正确",
+          "passed": true
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "查询知识与办理要求",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.028,
+      "responses": [
+        {
+          "session_id": "e5f65e78e42a4b43a6e976e3fe793354",
+          "status": "completed",
+          "answer": "【含模拟数据】\n[MOCK-POLICY-001] 学生证补办演示办法（模拟资料）：准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。\n模拟材料：身份证明、遗失说明\n【补问事务】如需模拟草稿，请补充姓名、学号，并说明生成草稿。",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "search_campus_knowledge",
+              "call_id": "call_e6763464f2394f1eb87f0c6a4e949e97",
+              "operation_id": "dad115f17eea4b60b90625314c756f80",
+              "arguments": {
+                "query": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "sources": [
+                    {
+                      "source_id": "MOCK-POLICY-001",
+                      "title": "学生证补办演示办法（模拟资料）",
+                      "content": "准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。"
+                    }
+                  ]
+                },
+                "message": "模拟知识检索结果",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "get_affair_requirements",
+              "call_id": "call_61451077ff874a0889b9ad0f62dd9e95",
+              "operation_id": "e79630b34ad1411fba469a56b9bb3fde",
+              "arguments": {
+                "affair_type": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "affair_type": "学生证补办",
+                  "required_fields": [
+                    "name",
+                    "student_id",
+                    "reason"
+                  ],
+                  "materials": [
+                    "身份证明",
+                    "遗失说明"
+                  ],
+                  "steps": [
+                    "准备材料",
+                    "联系学生事务中心"
+                  ]
+                },
+                "message": "模拟办理要求",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.03
+            }
+          ]
+        },
+        {
+          "session_id": "e5f65e78e42a4b43a6e976e3fe793354",
+          "status": "awaiting_confirmation",
+          "answer": "请核对以下模拟操作，确认后执行：create_affair_draft\n{\"affair_type\": \"学生证补办\", \"fields\": {\"name\": \"张三\", \"student_id\": \"20260001\", \"reason\": \"学生证遗失\"}}",
+          "pending_confirmation": {
+            "confirmation_id": "b43cb13218544e21a47c2be0d5d48e70",
+            "tool_name": "create_affair_draft",
+            "arguments": {
+              "affair_type": "学生证补办",
+              "fields": {
+                "name": "张三",
+                "student_id": "20260001",
+                "reason": "学生证遗失"
+              }
+            },
+            "expires_at": "2026-10-13T09:05:00+08:00",
+            "simulated": true,
+            "message": "请核对工具名称和全部参数，确认后才执行。"
+          },
+          "trace": [
+            {
+              "tool_name": "search_campus_knowledge",
+              "call_id": "call_1d30c4a3f2d646b095fb35bbd6f3ca4a",
+              "operation_id": "2c2660cde44d4f7788143c95adff3210",
+              "arguments": {
+                "query": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "sources": [
+                    {
+                      "source_id": "MOCK-POLICY-001",
+                      "title": "学生证补办演示办法（模拟资料）",
+                      "content": "准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。"
+                    }
+                  ]
+                },
+                "message": "模拟知识检索结果",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "get_affair_requirements",
+              "call_id": "call_af48a691771b4143bd158b67ee2948b6",
+              "operation_id": "b4e8acce4f4e4f3abf05244c2e6960cc",
+              "arguments": {
+                "affair_type": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "affair_type": "学生证补办",
+                  "required_fields": [
+                    "name",
+                    "student_id",
+                    "reason"
+                  ],
+                  "materials": [
+                    "身份证明",
+                    "遗失说明"
+                  ],
+                  "steps": [
+                    "准备材料",
+                    "联系学生事务中心"
+                  ]
+                },
+                "message": "模拟办理要求",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.03
+            }
+          ]
+        },
+        {
+          "session_id": "e5f65e78e42a4b43a6e976e3fe793354",
+          "status": "completed",
+          "answer": "【含模拟数据】\n已保存模拟申请草稿，尚未正式提交\n{\"draft_id\": \"DFT-a1383e26\", \"affair_type\": \"学生证补办\", \"fields\": {\"name\": \"张三\", \"student_id\": \"20260001\", \"reason\": \"学生证遗失\"}, \"status\": \"draft\"}",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "search_campus_knowledge",
+              "call_id": "call_1d30c4a3f2d646b095fb35bbd6f3ca4a",
+              "operation_id": "2c2660cde44d4f7788143c95adff3210",
+              "arguments": {
+                "query": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "sources": [
+                    {
+                      "source_id": "MOCK-POLICY-001",
+                      "title": "学生证补办演示办法（模拟资料）",
+                      "content": "准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。"
+                    }
+                  ]
+                },
+                "message": "模拟知识检索结果",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "get_affair_requirements",
+              "call_id": "call_af48a691771b4143bd158b67ee2948b6",
+              "operation_id": "b4e8acce4f4e4f3abf05244c2e6960cc",
+              "arguments": {
+                "affair_type": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "affair_type": "学生证补办",
+                  "required_fields": [
+                    "name",
+                    "student_id",
+                    "reason"
+                  ],
+                  "materials": [
+                    "身份证明",
+                    "遗失说明"
+                  ],
+                  "steps": [
+                    "准备材料",
+                    "联系学生事务中心"
+                  ]
+                },
+                "message": "模拟办理要求",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.03
+            },
+            {
+              "tool_name": "create_affair_draft",
+              "call_id": "call_2e561be7bec34f76bcdb661e4ce596c9",
+              "operation_id": "f6eabfbdb7b64ee1841936d0e7674fc3",
+              "arguments": {
+                "affair_type": "学生证补办",
+                "fields": {
+                  "name": "张三",
+                  "student_id": "20260001",
+                  "reason": "学生证遗失"
+                }
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "draft_id": "DFT-a1383e26",
+                  "affair_type": "学生证补办",
+                  "fields": {
+                    "name": "张三",
+                    "student_id": "20260001",
+                    "reason": "学生证遗失"
+                  },
+                  "status": "draft"
+                },
+                "message": "已保存模拟申请草稿，尚未正式提交",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.07
+            }
+          ]
+        }
+      ],
+      "record_count": 1
+    },
+    {
+      "case": "activity_conflict",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": true
+        },
+        {
+          "check": "排除课表冲突的活动",
+          "passed": true
+        },
+        {
+          "check": "本次确认后不出现额外待提交动作",
+          "passed": true
+        },
+        {
+          "check": "最终状态正确",
+          "passed": true
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "查询候选活动所在日期的课表",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 0.02,
+      "responses": [
+        {
+          "session_id": "57e49869a17c4090bf5b5486cb0cd490",
+          "status": "awaiting_confirmation",
+          "answer": "请核对以下模拟操作，确认后执行：register_activity\n{\"activity_id\": \"ACT-FREE\"}",
+          "pending_confirmation": {
+            "confirmation_id": "e09b43bceb8e4abdad33e3e58ef3bb04",
+            "tool_name": "register_activity",
+            "arguments": {
+              "activity_id": "ACT-FREE"
+            },
+            "expires_at": "2026-10-13T09:05:00+08:00",
+            "simulated": true,
+            "message": "请核对工具名称和全部参数，确认后才执行。"
+          },
+          "trace": [
+            {
+              "tool_name": "search_activities",
+              "call_id": "call_390c405d120748bf8cc7aab757957940",
+              "operation_id": "6c621ff35c1b487498099870b1fa3b77",
+              "arguments": {
+                "start_time": "2026-10-19T00:00:00+08:00",
+                "end_time": "2026-10-26T00:00:00+08:00",
+                "keywords": "计算机"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "activities": [
+                    {
+                      "activity_id": "ACT-CONFLICT",
+                      "title": "计算机讲座：算法",
+                      "start_time": "2026-10-19T14:00:00+08:00",
+                      "end_time": "2026-10-19T16:00:00+08:00",
+                      "location": "教学楼 101"
+                    },
+                    {
+                      "activity_id": "ACT-FREE",
+                      "title": "计算机讲座：人工智能",
+                      "start_time": "2026-10-20T18:00:00+08:00",
+                      "end_time": "2026-10-20T20:00:00+08:00",
+                      "location": "报告厅"
+                    }
+                  ]
+                },
+                "message": "模拟活动检索结果",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            },
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_966058eb1b2741cdb0acd72b579f7f00",
+              "operation_id": "6f0f4c35c248499196da541732e87007",
+              "arguments": {
+                "date": "2026-10-19"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-19",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-19T09:00:00+08:00",
+                      "end_time": "2026-10-19T10:00:00+08:00"
+                    },
+                    {
+                      "course": "高等数学",
+                      "start_time": "2026-10-19T14:00:00+08:00",
+                      "end_time": "2026-10-19T16:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_46061765d0084529b3ab3db7570a245c",
+              "operation_id": "914b37aa9a094eb390533c7cab03d1e4",
+              "arguments": {
+                "date": "2026-10-20"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-20",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-20T09:00:00+08:00",
+                      "end_time": "2026-10-20T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.03
+            }
+          ]
+        },
+        {
+          "session_id": "57e49869a17c4090bf5b5486cb0cd490",
+          "status": "completed",
+          "answer": "【含模拟数据】\n模拟报名成功，未提交官方系统\n{\"registration_id\": \"REG-93a69108\", \"activity_id\": \"ACT-FREE\", \"status\": \"active\"}",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "search_activities",
+              "call_id": "call_390c405d120748bf8cc7aab757957940",
+              "operation_id": "6c621ff35c1b487498099870b1fa3b77",
+              "arguments": {
+                "start_time": "2026-10-19T00:00:00+08:00",
+                "end_time": "2026-10-26T00:00:00+08:00",
+                "keywords": "计算机"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "activities": [
+                    {
+                      "activity_id": "ACT-CONFLICT",
+                      "title": "计算机讲座：算法",
+                      "start_time": "2026-10-19T14:00:00+08:00",
+                      "end_time": "2026-10-19T16:00:00+08:00",
+                      "location": "教学楼 101"
+                    },
+                    {
+                      "activity_id": "ACT-FREE",
+                      "title": "计算机讲座：人工智能",
+                      "start_time": "2026-10-20T18:00:00+08:00",
+                      "end_time": "2026-10-20T20:00:00+08:00",
+                      "location": "报告厅"
+                    }
+                  ]
+                },
+                "message": "模拟活动检索结果",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            },
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_966058eb1b2741cdb0acd72b579f7f00",
+              "operation_id": "6f0f4c35c248499196da541732e87007",
+              "arguments": {
+                "date": "2026-10-19"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-19",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-19T09:00:00+08:00",
+                      "end_time": "2026-10-19T10:00:00+08:00"
+                    },
+                    {
+                      "course": "高等数学",
+                      "start_time": "2026-10-19T14:00:00+08:00",
+                      "end_time": "2026-10-19T16:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.04
+            },
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_46061765d0084529b3ab3db7570a245c",
+              "operation_id": "914b37aa9a094eb390533c7cab03d1e4",
+              "arguments": {
+                "date": "2026-10-20"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-20",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-20T09:00:00+08:00",
+                      "end_time": "2026-10-20T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.03
+            },
+            {
+              "tool_name": "register_activity",
+              "call_id": "call_c40ee3f6fb6344d8a2a82f08787a19d2",
+              "operation_id": "b9dd118913784dc1a35d61ee0f1c3861",
+              "arguments": {
+                "activity_id": "ACT-FREE"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "registration_id": "REG-93a69108",
+                  "activity_id": "ACT-FREE",
+                  "status": "active"
+                },
+                "message": "模拟报名成功，未提交官方系统",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.07
+            }
+          ]
+        }
+      ],
+      "record_count": 1
+    }
+  ]
+}

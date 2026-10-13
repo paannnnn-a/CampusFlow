@@ -1,0 +1,178 @@
+{
+  "$defs": {
+    "PendingConfirmation": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmation_id": {
+          "title": "Confirmation Id",
+          "type": "string"
+        },
+        "tool_name": {
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "arguments": {
+          "title": "Arguments",
+          "type": "object"
+        },
+        "expires_at": {
+          "format": "date-time",
+          "title": "Expires At",
+          "type": "string"
+        },
+        "simulated": {
+          "title": "Simulated",
+          "type": "boolean"
+        },
+        "message": {
+          "default": "请核对工具名称和全部参数，确认后才执行。",
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "confirmation_id",
+        "tool_name",
+        "arguments",
+        "expires_at",
+        "simulated"
+      ],
+      "title": "PendingConfirmation",
+      "type": "object"
+    },
+    "ToolResult": {
+      "additionalProperties": false,
+      "properties": {
+        "success": {
+          "title": "Success",
+          "type": "boolean"
+        },
+        "data": {
+          "title": "Data",
+          "type": "object"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        },
+        "simulated": {
+          "default": true,
+          "title": "Simulated",
+          "type": "boolean"
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "message"
+      ],
+      "title": "ToolResult",
+      "type": "object"
+    },
+    "Trace": {
+      "additionalProperties": false,
+      "properties": {
+        "tool_name": {
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "call_id": {
+          "title": "Call Id",
+          "type": "string"
+        },
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "arguments": {
+          "title": "Arguments",
+          "type": "object"
+        },
+        "result": {
+          "$ref": "#/$defs/ToolResult"
+        },
+        "attempts": {
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "number"
+        }
+      },
+      "required": [
+        "tool_name",
+        "call_id",
+        "operation_id",
+        "arguments",
+        "result",
+        "attempts",
+        "duration_ms"
+      ],
+      "title": "Trace",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "awaiting_confirmation",
+        "cancelled",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "answer": {
+      "title": "Answer",
+      "type": "string"
+    },
+    "pending_confirmation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PendingConfirmation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "trace": {
+      "items": {
+        "$ref": "#/$defs/Trace"
+      },
+      "title": "Trace",
+      "type": "array"
+    }
+  },
+  "required": [
+    "session_id",
+    "status",
+    "answer"
+  ],
+  "title": "AgentResponse",
+  "type": "object"
+}
