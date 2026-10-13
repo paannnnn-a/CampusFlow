@@ -74,8 +74,13 @@ class HTTPModelClient:
                 if choice.get("finish_reason") not in {"stop", "tool_calls"}:
                     raise ValueError("截断或不受支持的结束原因")
                 message = choice["message"]
+                # 兼容服务可能在非流式 tool_calls 中也附带 index 等传输字段。
+                # 只将协议必需字段交给严格的 Agent 工具调用模型。
+                calls = [{"id": tool["id"], "type": tool["type"], "function": {
+                    "name": tool["function"]["name"], "arguments": tool["function"]["arguments"]}}
+                    for tool in message.get("tool_calls") or []]
                 parsed = {"role": "assistant", "content": message.get("content") or "",
-                          "tool_calls": message.get("tool_calls") or []}
+                          "tool_calls": calls}
                 if isinstance(message.get("reasoning_content"), str):
                     parsed["_chat_fields"] = {"reasoning_content": message["reasoning_content"]}
                 return parsed
@@ -98,7 +103,9 @@ class HTTPModelClient:
                                           headers={"Authorization": "Bearer " + self.api_key})
             except httpx.TransportError as exc:
                 if attempt + 1 == self.max_attempts:
-                    raise ModelError("模型连接失败，请稍后重试") from exc
+                    kind = type(exc).__name__
+                    detail = "模型请求超时" if isinstance(exc, httpx.TimeoutException) else "模型网络连接失败"
+                    raise ModelError("%s（%s），请稍后重试" % (detail, kind)) from exc
             else:
                 if response.is_success:
                     return response

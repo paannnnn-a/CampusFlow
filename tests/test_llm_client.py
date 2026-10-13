@@ -118,3 +118,22 @@ def test_probe_rejects_text_without_function_call():
     model = client(lambda request: httpx.Response(200, json={"choices": [{"finish_reason": "stop", "message": {"content": "我已经查好了"}}]}), "chat_completions")
     with pytest.raises(ModelError, match="未返回预期"):
         probe(model)
+
+
+def test_chat_tool_call_ignores_provider_transport_metadata():
+    from backend.agent.planner import normalize_reply
+    model = client(lambda request: httpx.Response(200, json={"choices": [{"finish_reason": "tool_calls", "message": {
+        "content": None, "tool_calls": [{"index": 0, "id": "ali-call", "type": "function", "function": {
+            "name": "get_schedule", "arguments": '{"date":"2026-10-13"}'}}]}}]}), "chat_completions")
+    message, calls = normalize_reply(model.complete([], [], system="test", state={}))
+    assert calls[0]["id"] == "ali-call"
+    assert "index" not in message["tool_calls"][0]
+
+
+def test_timeout_diagnostic_does_not_expose_raw_exception():
+    def handler(request):
+        raise httpx.ReadTimeout("test-secret and private request", request=request)
+    with pytest.raises(ModelError) as error:
+        client(handler).complete([], [], system="test", state={})
+    assert "ReadTimeout" in str(error.value)
+    assert "test-secret" not in str(error.value)

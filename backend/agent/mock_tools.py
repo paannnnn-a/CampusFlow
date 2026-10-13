@@ -5,6 +5,7 @@ from copy import deepcopy
 from datetime import date, datetime, timedelta
 from threading import RLock
 from uuid import uuid4
+import re
 
 from .contracts import CAMPUS_TZ, fail, ok
 from .tool_registry import SPECS, ToolRegistry
@@ -144,7 +145,10 @@ class MockCampus:
         return ok(data, "已保存模拟申请草稿，尚未正式提交")
 
     def search_activities(self, args, context):
-        return ok({"activities": [a for a in self.activities if args.keywords in a["title"]
+        keywords = [term for term in re.split(r"[\s,，、]+", args.keywords) if term]
+        if not keywords:
+            return fail("INVALID_KEYWORDS", "请提供活动主题关键词")
+        return ok({"activities": [a for a in self.activities if all(term in a["title"] for term in keywords)
             and args.start_time <= datetime.fromisoformat(a["start_time"])
             and datetime.fromisoformat(a["end_time"]) <= args.end_time]}, "模拟活动检索结果")
 

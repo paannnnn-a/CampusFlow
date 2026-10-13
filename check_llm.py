@@ -62,8 +62,12 @@ def main(argv=None):
         print(json.dumps(probe(model), ensure_ascii=False, indent=2))
         print("基础连接及工具结果回传通过。继续运行 evaluate_agent.py --mode llm 验收校园场景。")
         return 0
-    except (ModelError, ValueError):
-        print("在线自检失败。请按 docs/aliyun_setup.md 检查 Key、地域、模型权限、余额和接口类型。")
+    except ModelError as exc:
+        print("在线自检失败：" + str(exc))
+        print("请按 docs/aliyun_setup.md 检查 Key、地域、模型权限、余额和接口类型。")
+        return 1
+    except ValueError:
+        print("在线自检失败：模型返回的工具协议不符合预期，请检查接口或适配器。")
         return 1
     finally:
         model.close()

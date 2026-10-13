@@ -85,3 +85,10 @@ def test_idempotency_key_cannot_change_parameters(fixture):
     second = registry.invoke("create_repair_ticket", {"location": "4号楼301室", "problem": "漏水"}, context)
     assert first.success and second.error_code == "IDEMPOTENCY_KEY_REUSED"
     assert len(campus.repairs) == 1
+
+
+def test_activity_search_accepts_multiple_topic_terms(fixture):
+    _, _, invoke = fixture
+    result = invoke("search_activities", keywords="计算机 讲座",
+                    start_time="2026-10-19T00:00:00+08:00", end_time="2026-10-26T00:00:00+08:00")
+    assert result.success and len(result.data["activities"]) == 2

@@ -75,6 +75,7 @@ Mock 的幂等缓存、锁和冲突检查只是单进程演示，不能代替上
 |---|---|
 | `INVALID_ARGUMENTS` | 缺少字段或类型/日期非法，向用户说明并让其补充新请求 |
 | `UNKNOWN_TOOL` | 工具未注册或未绑定，检查 registry |
+| `PREREQUISITE_REQUIRED` | 本轮未完成事务知识检索或办理要求查询，拒绝跳过前置步骤 |
 | `CONFIRMATION_REQUIRED` | 执行器拦截了未确认写操作 |
 | `USER_CANCELLED` | 用户拒绝，不执行写入和本轮后续步骤 |
 | `CONFIRMATION_EXPIRED` | 确认已超时，不执行写入，刷新后仍能查看原因 |

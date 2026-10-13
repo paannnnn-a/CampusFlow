@@ -35,6 +35,8 @@ LLM_ENABLE_THINKING=false
 
 也可用 `DASHSCOPE_API_KEY` 环境变量提供密钥。当前终端的环境变量优先于 `.env`；修改文件不生效时检查旧的 `LLM_*` 配置是否覆盖文件。
 
+记事本打不开时，可直接运行 `python configure_key.py`，按提示粘贴密钥并回车。输入不显示字符是正常的；脚本只更新本地 `.env`，不会上传密钥。
+
 ## 3. 本地自检（不联网）
 
 ```powershell
@@ -72,7 +74,7 @@ LLM_ENABLE_THINKING=false
 .\.venv\Scripts\python.exe run_agent.py --mode llm --trace
 ```
 
-试试“明天下午找个安静座位自习两小时并预约”“寝室空调不制冷帮我维修”等不同说法；待确认时输入 `/confirm` 或 `/cancel`。同义问法的真实模型能力需要配置 Key 后验收，本包尚未在线验证。
+试试“明天下午找个安静座位自习两小时并预约”“寝室空调不制冷帮我维修”等不同说法；待确认时输入 `/confirm` 或 `/cancel`。同义问法的真实模型能力需要配置 Key 后验收，固定场景的实际结果见 evaluation_llm.json，更多同义问法仍需验证。
 
 ## 常见问题
 

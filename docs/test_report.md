@@ -8,7 +8,7 @@
 
 ```text
 python -m pytest -q
-94 passed
+103 passed
 ```
 
 | 文件 | 验证内容 |
@@ -23,7 +23,9 @@ python -m pytest -q
 
 第二版增加百炼参数、协议字段保留、连接自检、超时刷新一致性、工具预算边界与非法预算测试。机器可读的实际 pytest 结果见 `test_results.xml`。
 
-独立执行 `python evaluate_agent.py --mode demo`：**8 passed、0 failed、0 skipped**，详见 `evaluation_demo.json`。同一脚本的 `--mode llm` 可验收真实模型，尚待本地 API Key。
+独立执行 `python evaluate_agent.py --mode demo`：**8 passed、0 failed、0 skipped**，详见 `evaluation_demo.json`。同一脚本的 `--mode llm` 已用于实际百炼联调。
+
+第三版已实际验证百炼连接、工具参数与结果回传，并增加 index 字段兼容、下一自然周跨月/跨年、多关键词查询和事务前置条件的回归测试。真实模型场景验收见 `evaluation_llm.json`，与本地 103 项测试分开记录。
 
 ## 四场景实际运行
 
@@ -42,4 +44,10 @@ python run_agent.py --demo-all --trace --now 2026-10-13T09:00:00+08:00
 
 ## 验证范围
 
-上述结果证明 A 可以在 B/C 接口就绪前独立运行与验证编排。没有在线验证真实模型、真实 RAG、校园官方服务、业务数据库或 D 的 Web 页面；不能将“94 项单元测试通过”视为整个 CampusFlow 已完成端到端验收。真实 API、数据库并发约束和前端确认仍需集成阶段验收。
+上述结果证明 A 可以在 B/C 接口就绪前独立运行与验证编排，并已实际接通百炼模型。真实 RAG、校园官方服务、业务数据库与 D 的 Web 页面尚未验收；不能将“103 项本地测试通过”视为整个 CampusFlow 已完成端到端验收。数据库并发约束和前端确认仍需集成阶段验收。
+
+## 百炼真实场景最终记录
+
+最新逐场景汇总：4 通过、3 失败、1 跳过。
+
+此结果由完整运行与针对网络连接失败的重试合并，原始运行均保存在 evaluation_llm_attempt_*.json；不等同于一次全套运行全部通过，也不证明所有同义问法均稳定。

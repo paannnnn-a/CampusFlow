@@ -14,8 +14,9 @@ from backend.core.llm_client import ModelError
 from .contracts import PendingConfirmation, Trace, fail
 from .executor import Executor
 from .planner import normalize_reply
-from .prompts import SYSTEM_PROMPT
+from .prompts import SYSTEM_PROMPT, calendar_context
 from .state import AgentState
+from .tool_registry import allowed_tools
 
 
 def result_message(call_id, result):
@@ -43,13 +44,17 @@ def build_graph(model, registry, *, clock, checkpointer=None, max_rounds=10,
             raise ValueError("步数、确认有效期和尝试次数必须为正整数")
     executor = Executor(registry, read_attempts=read_attempts)
 
+    def available(state):
+        return allowed_tools({entry["tool_name"] for entry in state["trace"] if entry["result"]["success"]})
+
     def plan(state):
         if state["rounds"] >= max_rounds:
             text = failure_answer(state["trace"], fail("STEP_LIMIT", "已达到本轮处理步数上限，请缩小任务范围"))
             return {"status": "failed", "answer": text, "messages": state["messages"] + [{"role": "assistant", "content": text}]}
         try:
             message, calls = normalize_reply(model.complete(
-                state["messages"], registry.schemas(), system=SYSTEM_PROMPT.format(now=state["now"]), state=state))
+                state["messages"], registry.schemas(available(state)), system=SYSTEM_PROMPT.format(
+                    now=state["now"], calendar=calendar_context(state["now"])), state=state))
             if len(calls) > max_tools - state["tool_count"]:
                 raise ValueError("本轮工具调用数量超过限制")
         except Exception as exc:
@@ -70,6 +75,8 @@ def build_graph(model, registry, *, clock, checkpointer=None, max_rounds=10,
         call = state["calls"][state["pointer"]]
         args, error = executor.prepare(call)
         name = call["function"]["name"]
+        if not error and name not in available(state):
+            error = fail("PREREQUISITE_REQUIRED", "本轮需先检索校园知识，再查询办理要求，之后才能生成草稿")
         current = {"id": call["id"], "name": name, "arguments": args or {}, "operation_id": uuid4().hex}
         pending = None
         if error:

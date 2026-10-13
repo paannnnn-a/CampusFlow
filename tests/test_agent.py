@@ -354,3 +354,39 @@ def test_final_answer_allowed_after_exact_tool_limit(campus):
 def test_invalid_execution_limits_rejected(campus, option):
     with pytest.raises(ValueError):
         AgentService(ScriptedModel(), campus.registry(), clock=lambda: NOW, **{option: 0})
+
+
+@pytest.mark.parametrize("now,next_monday", [
+    ("2026-10-13T09:00:00+08:00", "2026-10-19"),
+    ("2026-10-19T09:00:00+08:00", "2026-10-26"),
+    ("2026-10-18T09:00:00+08:00", "2026-10-19"),
+    ("2026-12-31T09:00:00+08:00", "2027-01-04"),
+])
+def test_prompt_calendar_uses_next_natural_week(now, next_monday):
+    from backend.agent.prompts import calendar_context
+    assert "下周开始=" + next_monday + "T00:00:00+08:00" in calendar_context(now)
+
+
+def test_affair_tools_unlock_after_prerequisite_queries(campus):
+    class CapturingModel(ScriptedModel):
+        def __init__(self, *steps):
+            super().__init__(*steps)
+            self.catalogs = []
+        def complete(self, messages, tools, **kwargs):
+            self.catalogs.append({t["function"]["name"] for t in tools})
+            return super().complete(messages, tools, **kwargs)
+    model = CapturingModel(call("search_campus_knowledge", query="学生证补办"),
+                           call("get_affair_requirements", affair_type="学生证补办"), say("模拟材料依据 MOCK-POLICY-001"))
+    service = AgentService(model, campus.registry(), clock=lambda: NOW)
+    assert service.chat(user_id="u1", message="学生证丢了怎么办").status == "completed"
+    assert "get_affair_requirements" not in model.catalogs[0]
+    assert "get_affair_requirements" in model.catalogs[1]
+    assert "create_affair_draft" not in model.catalogs[1]
+    assert "create_affair_draft" in model.catalogs[2]
+
+
+def test_model_cannot_skip_affair_knowledge_prerequisite(campus):
+    service = AgentService(ScriptedModel(call("get_affair_requirements", affair_type="学生证补办")), campus.registry(), clock=lambda: NOW)
+    r = service.chat(user_id="u1", message="学生证补办材料")
+    assert r.status == "failed" and r.trace[-1].result.error_code == "PREREQUISITE_REQUIRED"
+    assert r.trace[-1].attempts == 0

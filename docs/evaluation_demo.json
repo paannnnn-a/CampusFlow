@@ -35,18 +35,18 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.01,
+      "duration_seconds": 0.008,
       "responses": [
         {
-          "session_id": "8511156a2caf4681b01963103fd7df83",
+          "session_id": "77758b69355d4cdfb6665b9317836549",
           "status": "completed",
           "answer": "【含模拟数据】\n模拟课表：\n{\"date\": \"2026-10-13\", \"courses\": [{\"course\": \"数据结构\", \"start_time\": \"2026-10-13T09:00:00+08:00\", \"end_time\": \"2026-10-13T10:00:00+08:00\"}]}",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "get_schedule",
-              "call_id": "call_b812bfaa75e64d05883ff653de94cf5f",
-              "operation_id": "09dc74a8aa594cc9b31c5a5e404cdbed",
+              "call_id": "call_b0ba129a3a6a460ab4bfa8e05b39098c",
+              "operation_id": "75355dd4b2cf430aa8f85ee12612667e",
               "arguments": {
                 "date": "2026-10-13"
               },
@@ -68,7 +68,7 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.06
+              "duration_ms": 0.05
             }
           ]
         }
@@ -96,10 +96,10 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.004,
+      "duration_seconds": 0.003,
       "responses": [
         {
-          "session_id": "29eb979dbed9444ba3772481d0629205",
+          "session_id": "0ba4a1fef26d41acb6ed3c6823663df1",
           "status": "completed",
           "answer": "【补问时间】请说明哪一天，例如今天、明天或 YYYY-MM-DD。",
           "pending_confirmation": null,
@@ -153,14 +153,14 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.02,
+      "duration_seconds": 0.017,
       "responses": [
         {
-          "session_id": "c0bddf6088c74eee922d8665f6727e90",
+          "session_id": "d6654fec81dd416fb11b66f1816cadc4",
           "status": "awaiting_confirmation",
           "answer": "请核对以下模拟操作，确认后执行：book_study_seat\n{\"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\"}",
           "pending_confirmation": {
-            "confirmation_id": "cf90a4e29cae4720b8e3cb4a9628936d",
+            "confirmation_id": "5233b2d3577447d1b5ebb4b009df919b",
             "tool_name": "book_study_seat",
             "arguments": {
               "start_time": "2026-10-14T14:00:00+08:00",
@@ -174,8 +174,8 @@
           "trace": [
             {
               "tool_name": "get_schedule",
-              "call_id": "call_0ab69fdd5c9345448cd638e26a870265",
-              "operation_id": "42ef41cbde184af5b376df3d592b0b69",
+              "call_id": "call_101193c48b4f413f80f2fc3d4a8c30a6",
+              "operation_id": "e051cd2d2ba14c5e899a6189d91b1b6d",
               "arguments": {
                 "date": "2026-10-14"
               },
@@ -201,8 +201,8 @@
             },
             {
               "tool_name": "find_free_slots",
-              "call_id": "call_35211dc03ad0420eae907df7ad7b44ba",
-              "operation_id": "7ec70fcb0c854e108efd20110436f64f",
+              "call_id": "call_19575722196f4ce099f43d1eb94b20ff",
+              "operation_id": "0950988ac67c4274b2e4f05b884e4968",
               "arguments": {
                 "date": "2026-10-14",
                 "duration_minutes": 120
@@ -227,8 +227,8 @@
             },
             {
               "tool_name": "find_available_seats",
-              "call_id": "call_013acedd05854eabab6c65beb83a3596",
-              "operation_id": "24d118a7292f4a0498f10ce2b0adf3cd",
+              "call_id": "call_b2aa7e7a181748c6a96a9b324a8110d8",
+              "operation_id": "1693908e39d147079728419f0d5ff5e0",
               "arguments": {
                 "start_time": "2026-10-14T14:00:00+08:00",
                 "end_time": "2026-10-14T16:00:00+08:00"
@@ -255,20 +255,20 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.05
             }
           ]
         },
         {
-          "session_id": "c0bddf6088c74eee922d8665f6727e90",
+          "session_id": "d6654fec81dd416fb11b66f1816cadc4",
           "status": "completed",
-          "answer": "【含模拟数据】\n模拟预约成功，未提交学校官方系统\n{\"reservation_id\": \"RSV-0721c0b4\", \"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\", \"status\": \"active\"}",
+          "answer": "【含模拟数据】\n模拟预约成功，未提交学校官方系统\n{\"reservation_id\": \"RSV-0507ae89\", \"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\", \"status\": \"active\"}",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "get_schedule",
-              "call_id": "call_0ab69fdd5c9345448cd638e26a870265",
-              "operation_id": "42ef41cbde184af5b376df3d592b0b69",
+              "call_id": "call_101193c48b4f413f80f2fc3d4a8c30a6",
+              "operation_id": "e051cd2d2ba14c5e899a6189d91b1b6d",
               "arguments": {
                 "date": "2026-10-14"
               },
@@ -294,8 +294,8 @@
             },
             {
               "tool_name": "find_free_slots",
-              "call_id": "call_35211dc03ad0420eae907df7ad7b44ba",
-              "operation_id": "7ec70fcb0c854e108efd20110436f64f",
+              "call_id": "call_19575722196f4ce099f43d1eb94b20ff",
+              "operation_id": "0950988ac67c4274b2e4f05b884e4968",
               "arguments": {
                 "date": "2026-10-14",
                 "duration_minutes": 120
@@ -320,8 +320,8 @@
             },
             {
               "tool_name": "find_available_seats",
-              "call_id": "call_013acedd05854eabab6c65beb83a3596",
-              "operation_id": "24d118a7292f4a0498f10ce2b0adf3cd",
+              "call_id": "call_b2aa7e7a181748c6a96a9b324a8110d8",
+              "operation_id": "1693908e39d147079728419f0d5ff5e0",
               "arguments": {
                 "start_time": "2026-10-14T14:00:00+08:00",
                 "end_time": "2026-10-14T16:00:00+08:00"
@@ -348,12 +348,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.05
             },
             {
               "tool_name": "book_study_seat",
-              "call_id": "call_fa0baeeb50d9479ca4ad5295775ac82c",
-              "operation_id": "172121a06e034b949b00cc327d5a7243",
+              "call_id": "call_6ede24bbf2f34614a6a1530c8ff5b438",
+              "operation_id": "419d5c5760784a449394fa844fc92b5b",
               "arguments": {
                 "start_time": "2026-10-14T14:00:00+08:00",
                 "end_time": "2026-10-14T16:00:00+08:00",
@@ -362,7 +362,7 @@
               "result": {
                 "success": true,
                 "data": {
-                  "reservation_id": "RSV-0721c0b4",
+                  "reservation_id": "RSV-0507ae89",
                   "start_time": "2026-10-14T14:00:00+08:00",
                   "end_time": "2026-10-14T16:00:00+08:00",
                   "seat_id": "LIB-A301-01",
@@ -374,7 +374,7 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.1
+              "duration_ms": 0.08
             }
           ]
         }
@@ -426,14 +426,14 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.018,
+      "duration_seconds": 0.014,
       "responses": [
         {
-          "session_id": "226f66e3d41349c9b3877dd96505079c",
+          "session_id": "7e71cee55a1c4b7698373ae0850797a6",
           "status": "awaiting_confirmation",
           "answer": "请核对以下模拟操作，确认后执行：book_study_seat\n{\"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\"}",
           "pending_confirmation": {
-            "confirmation_id": "f62b3bb0aaa54ac5b5e9e8611e81c686",
+            "confirmation_id": "603e185069c54f27ad1375a385b540fd",
             "tool_name": "book_study_seat",
             "arguments": {
               "start_time": "2026-10-14T14:00:00+08:00",
@@ -447,8 +447,8 @@
           "trace": [
             {
               "tool_name": "get_schedule",
-              "call_id": "call_8cb5aca2c8bd40b281acc22f21ef9095",
-              "operation_id": "86d858145eb44a21b7c74ebc9287eb32",
+              "call_id": "call_3ffcf2d1c2f948e681564c46b04b2e64",
+              "operation_id": "308ede285a384f91862159ca7ade42f8",
               "arguments": {
                 "date": "2026-10-14"
               },
@@ -470,12 +470,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.05
             },
             {
               "tool_name": "find_free_slots",
-              "call_id": "call_df11a719536847b0920c639399566b30",
-              "operation_id": "bd8c2d452b27481f8cd7a4b4fe13b70b",
+              "call_id": "call_120cfbccf06949c4a119dbcfb3bfb23c",
+              "operation_id": "2b14e91749bd49ff9a670e78074e8fa2",
               "arguments": {
                 "date": "2026-10-14",
                 "duration_minutes": 120
@@ -500,8 +500,8 @@
             },
             {
               "tool_name": "find_available_seats",
-              "call_id": "call_f2c4f26f1f4c40f6b5c9c5f23577fc1e",
-              "operation_id": "02cf2bb262014ce6848cb4170a7f935b",
+              "call_id": "call_edca1640492143b19789ed2ae0c4b5ed",
+              "operation_id": "31b40a9d1d2c47168c83059e111c9d19",
               "arguments": {
                 "start_time": "2026-10-14T14:00:00+08:00",
                 "end_time": "2026-10-14T16:00:00+08:00"
@@ -528,20 +528,20 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.03
             }
           ]
         },
         {
-          "session_id": "226f66e3d41349c9b3877dd96505079c",
+          "session_id": "7e71cee55a1c4b7698373ae0850797a6",
           "status": "cancelled",
           "answer": "【含模拟数据】\n本次处理已停止：已取消当前待确认操作及本轮后续步骤（USER_CANCELLED）。",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "get_schedule",
-              "call_id": "call_8cb5aca2c8bd40b281acc22f21ef9095",
-              "operation_id": "86d858145eb44a21b7c74ebc9287eb32",
+              "call_id": "call_3ffcf2d1c2f948e681564c46b04b2e64",
+              "operation_id": "308ede285a384f91862159ca7ade42f8",
               "arguments": {
                 "date": "2026-10-14"
               },
@@ -563,12 +563,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.05
             },
             {
               "tool_name": "find_free_slots",
-              "call_id": "call_df11a719536847b0920c639399566b30",
-              "operation_id": "bd8c2d452b27481f8cd7a4b4fe13b70b",
+              "call_id": "call_120cfbccf06949c4a119dbcfb3bfb23c",
+              "operation_id": "2b14e91749bd49ff9a670e78074e8fa2",
               "arguments": {
                 "date": "2026-10-14",
                 "duration_minutes": 120
@@ -593,8 +593,8 @@
             },
             {
               "tool_name": "find_available_seats",
-              "call_id": "call_f2c4f26f1f4c40f6b5c9c5f23577fc1e",
-              "operation_id": "02cf2bb262014ce6848cb4170a7f935b",
+              "call_id": "call_edca1640492143b19789ed2ae0c4b5ed",
+              "operation_id": "31b40a9d1d2c47168c83059e111c9d19",
               "arguments": {
                 "start_time": "2026-10-14T14:00:00+08:00",
                 "end_time": "2026-10-14T16:00:00+08:00"
@@ -621,12 +621,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.03
             },
             {
               "tool_name": "book_study_seat",
-              "call_id": "call_1d2e393df6284f83a6f0259eeaab974d",
-              "operation_id": "a81fe9ba9b2c4d17ac334f89f97c0533",
+              "call_id": "call_b346b1749fbc493a880a3fc5385270a6",
+              "operation_id": "163ecb78849644b8869b19af247d8252",
               "arguments": {
                 "start_time": "2026-10-14T14:00:00+08:00",
                 "end_time": "2026-10-14T16:00:00+08:00",
@@ -693,21 +693,21 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.014,
+      "duration_seconds": 0.012,
       "responses": [
         {
-          "session_id": "df63bacc2b544e6fbf7095d82c10138c",
+          "session_id": "600bcc2829494a5494c956622bb31b2d",
           "status": "completed",
           "answer": "【补问报修】请提供宿舍位置，例如：3号楼502室。",
           "pending_confirmation": null,
           "trace": []
         },
         {
-          "session_id": "df63bacc2b544e6fbf7095d82c10138c",
+          "session_id": "600bcc2829494a5494c956622bb31b2d",
           "status": "awaiting_confirmation",
           "answer": "请核对以下模拟操作，确认后执行：create_repair_ticket\n{\"location\": \"3号楼502室\", \"problem\": \"空调不制冷\"}",
           "pending_confirmation": {
-            "confirmation_id": "7920bda4ab034a99859af08439ae8fc4",
+            "confirmation_id": "e4d9a84b08fe4eb98f9bed3b24a3d6d6",
             "tool_name": "create_repair_ticket",
             "arguments": {
               "location": "3号楼502室",
@@ -720,15 +720,15 @@
           "trace": []
         },
         {
-          "session_id": "df63bacc2b544e6fbf7095d82c10138c",
+          "session_id": "600bcc2829494a5494c956622bb31b2d",
           "status": "completed",
-          "answer": "【含模拟数据】\n已创建模拟工单，未通知学校维修人员\n{\"ticket_id\": \"RP-66ce480a\", \"location\": \"3号楼502室\", \"problem\": \"空调不制冷\", \"status\": \"pending\"}",
+          "answer": "【含模拟数据】\n已创建模拟工单，未通知学校维修人员\n{\"ticket_id\": \"RP-c8b7573e\", \"location\": \"3号楼502室\", \"problem\": \"空调不制冷\", \"status\": \"pending\"}",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "create_repair_ticket",
-              "call_id": "call_5e3d8ff567d94e7ab2d7b2dd5a193359",
-              "operation_id": "5382293973d84cc4aa5ea7a139f99a07",
+              "call_id": "call_d77c012ec953423e86dbcc5e11bbb7a9",
+              "operation_id": "99fd40c2b20c4fd8988e27f6d277dd12",
               "arguments": {
                 "location": "3号楼502室",
                 "problem": "空调不制冷"
@@ -736,7 +736,7 @@
               "result": {
                 "success": true,
                 "data": {
-                  "ticket_id": "RP-66ce480a",
+                  "ticket_id": "RP-c8b7573e",
                   "location": "3号楼502室",
                   "problem": "空调不制冷",
                   "status": "pending"
@@ -747,7 +747,7 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.07
+              "duration_ms": 0.06
             }
           ]
         }
@@ -783,18 +783,18 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.011,
+      "duration_seconds": 0.01,
       "responses": [
         {
-          "session_id": "28dc07a9c7fa4e0fa6ba033e44f64f2b",
+          "session_id": "dce7dc09e0bc47b8bb84d2cd8b79b5c7",
           "status": "completed",
           "answer": "【含模拟数据】\n[MOCK-POLICY-001] 学生证补办演示办法（模拟资料）：准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。\n模拟材料：身份证明、遗失说明\n【补问事务】如需模拟草稿，请补充姓名、学号，并说明生成草稿。",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "search_campus_knowledge",
-              "call_id": "call_5186f0d957e64e61bb6d2edbd1bf2c25",
-              "operation_id": "663b6b55918c424eaca0025bd3a79e6b",
+              "call_id": "call_36507383a3e44aa5a3f90cc44db17f45",
+              "operation_id": "5aa4b439675748e59c8cd06a47c9aae1",
               "arguments": {
                 "query": "学生证补办"
               },
@@ -815,12 +815,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.05
             },
             {
               "tool_name": "get_affair_requirements",
-              "call_id": "call_3b77781241004288bf9e27cd8b926909",
-              "operation_id": "96301c8443a64b37ac0f18f5528e5fb8",
+              "call_id": "call_e877db7b8c5a44419b3173ca68449710",
+              "operation_id": "d6ac911a543a47a3b5224f4063032fcd",
               "arguments": {
                 "affair_type": "学生证补办"
               },
@@ -900,18 +900,18 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.028,
+      "duration_seconds": 0.023,
       "responses": [
         {
-          "session_id": "e5f65e78e42a4b43a6e976e3fe793354",
+          "session_id": "7221a2e1dd7b4ee480ff2ab92e8c1802",
           "status": "completed",
           "answer": "【含模拟数据】\n[MOCK-POLICY-001] 学生证补办演示办法（模拟资料）：准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。\n模拟材料：身份证明、遗失说明\n【补问事务】如需模拟草稿，请补充姓名、学号，并说明生成草稿。",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "search_campus_knowledge",
-              "call_id": "call_e6763464f2394f1eb87f0c6a4e949e97",
-              "operation_id": "dad115f17eea4b60b90625314c756f80",
+              "call_id": "call_2b4a5f9d7b7e403c8d38babcd440a763",
+              "operation_id": "00c69f0a93fa4f8f8b06be12024110f6",
               "arguments": {
                 "query": "学生证补办"
               },
@@ -932,12 +932,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.03
             },
             {
               "tool_name": "get_affair_requirements",
-              "call_id": "call_61451077ff874a0889b9ad0f62dd9e95",
-              "operation_id": "e79630b34ad1411fba469a56b9bb3fde",
+              "call_id": "call_bbd7552d0c724e5c98831133e332719d",
+              "operation_id": "aca986a98dce4a78b78d41d99d322520",
               "arguments": {
                 "affair_type": "学生证补办"
               },
@@ -970,11 +970,11 @@
           ]
         },
         {
-          "session_id": "e5f65e78e42a4b43a6e976e3fe793354",
+          "session_id": "7221a2e1dd7b4ee480ff2ab92e8c1802",
           "status": "awaiting_confirmation",
           "answer": "请核对以下模拟操作，确认后执行：create_affair_draft\n{\"affair_type\": \"学生证补办\", \"fields\": {\"name\": \"张三\", \"student_id\": \"20260001\", \"reason\": \"学生证遗失\"}}",
           "pending_confirmation": {
-            "confirmation_id": "b43cb13218544e21a47c2be0d5d48e70",
+            "confirmation_id": "d6b1599474c247e6a6be27e0d34db879",
             "tool_name": "create_affair_draft",
             "arguments": {
               "affair_type": "学生证补办",
@@ -991,8 +991,8 @@
           "trace": [
             {
               "tool_name": "search_campus_knowledge",
-              "call_id": "call_1d30c4a3f2d646b095fb35bbd6f3ca4a",
-              "operation_id": "2c2660cde44d4f7788143c95adff3210",
+              "call_id": "call_4f81ae86d1234d9badad45b8e01e183a",
+              "operation_id": "2b280b9820c5490488b1f4320e11acc2",
               "arguments": {
                 "query": "学生证补办"
               },
@@ -1013,12 +1013,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.03
             },
             {
               "tool_name": "get_affair_requirements",
-              "call_id": "call_af48a691771b4143bd158b67ee2948b6",
-              "operation_id": "b4e8acce4f4e4f3abf05244c2e6960cc",
+              "call_id": "call_cfcd92919cc64c72a4e80798275c5e03",
+              "operation_id": "b1c2b6da18704ad69d802b9c95c9c276",
               "arguments": {
                 "affair_type": "学生证补办"
               },
@@ -1051,15 +1051,15 @@
           ]
         },
         {
-          "session_id": "e5f65e78e42a4b43a6e976e3fe793354",
+          "session_id": "7221a2e1dd7b4ee480ff2ab92e8c1802",
           "status": "completed",
-          "answer": "【含模拟数据】\n已保存模拟申请草稿，尚未正式提交\n{\"draft_id\": \"DFT-a1383e26\", \"affair_type\": \"学生证补办\", \"fields\": {\"name\": \"张三\", \"student_id\": \"20260001\", \"reason\": \"学生证遗失\"}, \"status\": \"draft\"}",
+          "answer": "【含模拟数据】\n已保存模拟申请草稿，尚未正式提交\n{\"draft_id\": \"DFT-7a0b28e0\", \"affair_type\": \"学生证补办\", \"fields\": {\"name\": \"张三\", \"student_id\": \"20260001\", \"reason\": \"学生证遗失\"}, \"status\": \"draft\"}",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "search_campus_knowledge",
-              "call_id": "call_1d30c4a3f2d646b095fb35bbd6f3ca4a",
-              "operation_id": "2c2660cde44d4f7788143c95adff3210",
+              "call_id": "call_4f81ae86d1234d9badad45b8e01e183a",
+              "operation_id": "2b280b9820c5490488b1f4320e11acc2",
               "arguments": {
                 "query": "学生证补办"
               },
@@ -1080,12 +1080,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.03
             },
             {
               "tool_name": "get_affair_requirements",
-              "call_id": "call_af48a691771b4143bd158b67ee2948b6",
-              "operation_id": "b4e8acce4f4e4f3abf05244c2e6960cc",
+              "call_id": "call_cfcd92919cc64c72a4e80798275c5e03",
+              "operation_id": "b1c2b6da18704ad69d802b9c95c9c276",
               "arguments": {
                 "affair_type": "学生证补办"
               },
@@ -1117,8 +1117,8 @@
             },
             {
               "tool_name": "create_affair_draft",
-              "call_id": "call_2e561be7bec34f76bcdb661e4ce596c9",
-              "operation_id": "f6eabfbdb7b64ee1841936d0e7674fc3",
+              "call_id": "call_68c73392558442069e46773468bf70a0",
+              "operation_id": "734135a996f34069bdb7ee6ce15ecf28",
               "arguments": {
                 "affair_type": "学生证补办",
                 "fields": {
@@ -1130,7 +1130,7 @@
               "result": {
                 "success": true,
                 "data": {
-                  "draft_id": "DFT-a1383e26",
+                  "draft_id": "DFT-7a0b28e0",
                   "affair_type": "学生证补办",
                   "fields": {
                     "name": "张三",
@@ -1145,7 +1145,7 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.07
+              "duration_ms": 0.16
             }
           ]
         }
@@ -1189,14 +1189,14 @@
           "passed": true
         }
       ],
-      "duration_seconds": 0.02,
+      "duration_seconds": 0.016,
       "responses": [
         {
-          "session_id": "57e49869a17c4090bf5b5486cb0cd490",
+          "session_id": "7cf5e2de609847b388590f704979b8cb",
           "status": "awaiting_confirmation",
           "answer": "请核对以下模拟操作，确认后执行：register_activity\n{\"activity_id\": \"ACT-FREE\"}",
           "pending_confirmation": {
-            "confirmation_id": "e09b43bceb8e4abdad33e3e58ef3bb04",
+            "confirmation_id": "f06acc224f4043ba9965509357b8fd2b",
             "tool_name": "register_activity",
             "arguments": {
               "activity_id": "ACT-FREE"
@@ -1208,8 +1208,8 @@
           "trace": [
             {
               "tool_name": "search_activities",
-              "call_id": "call_390c405d120748bf8cc7aab757957940",
-              "operation_id": "6c621ff35c1b487498099870b1fa3b77",
+              "call_id": "call_ddeaa2621c944d64a59f348be4bdf9f9",
+              "operation_id": "c7075214446c4e3082cd017409c20353",
               "arguments": {
                 "start_time": "2026-10-19T00:00:00+08:00",
                 "end_time": "2026-10-26T00:00:00+08:00",
@@ -1241,12 +1241,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.06
+              "duration_ms": 0.18
             },
             {
               "tool_name": "get_schedule",
-              "call_id": "call_966058eb1b2741cdb0acd72b579f7f00",
-              "operation_id": "6f0f4c35c248499196da541732e87007",
+              "call_id": "call_16cfce78412949de9a5970cd79535fcf",
+              "operation_id": "1d6f1a03a67a4beebc78554a48ec5d3b",
               "arguments": {
                 "date": "2026-10-19"
               },
@@ -1273,12 +1273,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.03
             },
             {
               "tool_name": "get_schedule",
-              "call_id": "call_46061765d0084529b3ab3db7570a245c",
-              "operation_id": "914b37aa9a094eb390533c7cab03d1e4",
+              "call_id": "call_40906322330f468fa63834d7a5726052",
+              "operation_id": "1037414aa87e46f6a0fe9117efe59758",
               "arguments": {
                 "date": "2026-10-20"
               },
@@ -1305,15 +1305,15 @@
           ]
         },
         {
-          "session_id": "57e49869a17c4090bf5b5486cb0cd490",
+          "session_id": "7cf5e2de609847b388590f704979b8cb",
           "status": "completed",
-          "answer": "【含模拟数据】\n模拟报名成功，未提交官方系统\n{\"registration_id\": \"REG-93a69108\", \"activity_id\": \"ACT-FREE\", \"status\": \"active\"}",
+          "answer": "【含模拟数据】\n模拟报名成功，未提交官方系统\n{\"registration_id\": \"REG-15f1e02b\", \"activity_id\": \"ACT-FREE\", \"status\": \"active\"}",
           "pending_confirmation": null,
           "trace": [
             {
               "tool_name": "search_activities",
-              "call_id": "call_390c405d120748bf8cc7aab757957940",
-              "operation_id": "6c621ff35c1b487498099870b1fa3b77",
+              "call_id": "call_ddeaa2621c944d64a59f348be4bdf9f9",
+              "operation_id": "c7075214446c4e3082cd017409c20353",
               "arguments": {
                 "start_time": "2026-10-19T00:00:00+08:00",
                 "end_time": "2026-10-26T00:00:00+08:00",
@@ -1345,12 +1345,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.06
+              "duration_ms": 0.18
             },
             {
               "tool_name": "get_schedule",
-              "call_id": "call_966058eb1b2741cdb0acd72b579f7f00",
-              "operation_id": "6f0f4c35c248499196da541732e87007",
+              "call_id": "call_16cfce78412949de9a5970cd79535fcf",
+              "operation_id": "1d6f1a03a67a4beebc78554a48ec5d3b",
               "arguments": {
                 "date": "2026-10-19"
               },
@@ -1377,12 +1377,12 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.04
+              "duration_ms": 0.03
             },
             {
               "tool_name": "get_schedule",
-              "call_id": "call_46061765d0084529b3ab3db7570a245c",
-              "operation_id": "914b37aa9a094eb390533c7cab03d1e4",
+              "call_id": "call_40906322330f468fa63834d7a5726052",
+              "operation_id": "1037414aa87e46f6a0fe9117efe59758",
               "arguments": {
                 "date": "2026-10-20"
               },
@@ -1408,15 +1408,15 @@
             },
             {
               "tool_name": "register_activity",
-              "call_id": "call_c40ee3f6fb6344d8a2a82f08787a19d2",
-              "operation_id": "b9dd118913784dc1a35d61ee0f1c3861",
+              "call_id": "call_188fa1297c6e4f81ba8a348213bb64a4",
+              "operation_id": "b21ead48ecf24eb8aa643517fe8bdf87",
               "arguments": {
                 "activity_id": "ACT-FREE"
               },
               "result": {
                 "success": true,
                 "data": {
-                  "registration_id": "REG-93a69108",
+                  "registration_id": "REG-15f1e02b",
                   "activity_id": "ACT-FREE",
                   "status": "active"
                 },
@@ -1426,7 +1426,7 @@
                 "retryable": false
               },
               "attempts": 1,
-              "duration_ms": 0.07
+              "duration_ms": 0.06
             }
           ]
         }

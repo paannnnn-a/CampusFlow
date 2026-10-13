@@ -1,0 +1,743 @@
+{
+  "mode": "llm",
+  "fixed_campus_time": "2026-10-13T09:00:00+08:00",
+  "business_backend": "fresh in-memory Mock per case",
+  "configuration": {
+    "api_key_configured": true,
+    "model": "qwen-plus",
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "api_style": "chat_completions",
+    "enable_thinking": false
+  },
+  "grading": "结构化行为检查；不等同于全面语义质量评估",
+  "summary": {
+    "passed": 4,
+    "failed": 3,
+    "skipped": 1
+  },
+  "cases": [
+    {
+      "case": "schedule_today",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "只读场景不请求写操作确认",
+          "passed": true
+        },
+        {
+          "check": "本轮正常结束",
+          "passed": true
+        },
+        {
+          "check": "实际调用课表工具且使用可信当天",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 26.913,
+      "responses": [
+        {
+          "session_id": "acb011bd4efd499d8648b2431b8e814b",
+          "status": "completed",
+          "answer": "【含模拟数据】\n您今天（2026年10月13日）有一节课：\n\n- **数据结构**：09:00–10:00\n\n需要我帮您做其他事情吗？比如：\n- 查询空闲时段学习\n- 预约自习座位\n- 查找相关校园活动\n- 办理事务或报修等",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_0fc010994ebc4fb98d33b1",
+              "operation_id": "efa8734a7188497f8d9373f34c0ffa99",
+              "arguments": {
+                "date": "2026-10-13"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-13",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-13T09:00:00+08:00",
+                      "end_time": "2026-10-13T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.07
+            }
+          ]
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "missing_date",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "只读场景不请求写操作确认",
+          "passed": true
+        },
+        {
+          "check": "本轮正常结束",
+          "passed": true
+        },
+        {
+          "check": "缺少日期时补问而不自行查询",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 4.194,
+      "responses": [
+        {
+          "session_id": "367a55eef1e245058cf7ce6193536bdb",
+          "status": "completed",
+          "answer": "请问您想查询哪一天的课表？请提供具体日期（格式：YYYY-MM-DD），例如“2026-10-13”。",
+          "pending_confirmation": null,
+          "trace": []
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "study_confirm",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": true
+        },
+        {
+          "check": "预约工具正确",
+          "passed": true
+        },
+        {
+          "check": "规范化为明天下午连续两小时",
+          "passed": true
+        },
+        {
+          "check": "本次确认后不出现额外待提交动作",
+          "passed": true
+        },
+        {
+          "check": "最终状态正确",
+          "passed": true
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "前置查询齐全",
+          "passed": true
+        },
+        {
+          "check": "前置查询顺序正确",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 56.861,
+      "responses": [
+        {
+          "session_id": "20c800ca70f241f5ab10aecf2ebbf663",
+          "status": "awaiting_confirmation",
+          "answer": "请核对以下模拟操作，确认后执行：book_study_seat\n{\"start_time\": \"2026-10-14T14:00:00+08:00\", \"end_time\": \"2026-10-14T16:00:00+08:00\", \"seat_id\": \"LIB-A301-01\"}",
+          "pending_confirmation": {
+            "confirmation_id": "8297aaf0b6bd409fbe82074b2caf2b75",
+            "tool_name": "book_study_seat",
+            "arguments": {
+              "start_time": "2026-10-14T14:00:00+08:00",
+              "end_time": "2026-10-14T16:00:00+08:00",
+              "seat_id": "LIB-A301-01"
+            },
+            "expires_at": "2026-10-13T09:05:00+08:00",
+            "simulated": true,
+            "message": "请核对工具名称和全部参数，确认后才执行。"
+          },
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_cf82ac2ca6934b2180b60e",
+              "operation_id": "ed684e1645f94814b373a60159b07644",
+              "arguments": {
+                "date": "2026-10-14"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-14",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-14T09:00:00+08:00",
+                      "end_time": "2026-10-14T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            },
+            {
+              "tool_name": "find_free_slots",
+              "call_id": "call_c0abe7da15fa466ba6a258",
+              "operation_id": "1cfece6ac3df42ef8ff088ca867fff46",
+              "arguments": {
+                "date": "2026-10-14",
+                "duration_minutes": 120
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "slots": [
+                    {
+                      "start_time": "2026-10-14T10:00:00+08:00",
+                      "end_time": "2026-10-14T22:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟空闲时段",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.09
+            },
+            {
+              "tool_name": "find_available_seats",
+              "call_id": "call_d7d06a032d8c416cb7a4a8",
+              "operation_id": "e22e264eb6de4732a8fc784909b5fb1a",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "seats": [
+                    {
+                      "seat_id": "LIB-A301-01",
+                      "location": "图书馆 A301 静音区"
+                    },
+                    {
+                      "seat_id": "LIB-A301-02",
+                      "location": "图书馆 A301 静音区"
+                    }
+                  ],
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00"
+                },
+                "message": "模拟可用座位",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            }
+          ]
+        },
+        {
+          "session_id": "20c800ca70f241f5ab10aecf2ebbf663",
+          "status": "completed",
+          "answer": "【含模拟数据】\n✅ 已成功为您预约明天（2026-10-14）下午14:00-16:00的座位：\n\n- 座位号：LIB-A301-01\n- 位置：图书馆 A301 静音区\n- 预约编号：RSV-7658a015\n\n请注意：此为模拟预约，尚未提交至学校官方系统。如需正式预约，请通过校园官方平台操作。",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_cf82ac2ca6934b2180b60e",
+              "operation_id": "ed684e1645f94814b373a60159b07644",
+              "arguments": {
+                "date": "2026-10-14"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-14",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-14T09:00:00+08:00",
+                      "end_time": "2026-10-14T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            },
+            {
+              "tool_name": "find_free_slots",
+              "call_id": "call_c0abe7da15fa466ba6a258",
+              "operation_id": "1cfece6ac3df42ef8ff088ca867fff46",
+              "arguments": {
+                "date": "2026-10-14",
+                "duration_minutes": 120
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "slots": [
+                    {
+                      "start_time": "2026-10-14T10:00:00+08:00",
+                      "end_time": "2026-10-14T22:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟空闲时段",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.09
+            },
+            {
+              "tool_name": "find_available_seats",
+              "call_id": "call_d7d06a032d8c416cb7a4a8",
+              "operation_id": "e22e264eb6de4732a8fc784909b5fb1a",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "seats": [
+                    {
+                      "seat_id": "LIB-A301-01",
+                      "location": "图书馆 A301 静音区"
+                    },
+                    {
+                      "seat_id": "LIB-A301-02",
+                      "location": "图书馆 A301 静音区"
+                    }
+                  ],
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00"
+                },
+                "message": "模拟可用座位",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            },
+            {
+              "tool_name": "book_study_seat",
+              "call_id": "call_f451c4baf7004a7f909cb6",
+              "operation_id": "f865c88dd6324a8a9257924b7deb55e0",
+              "arguments": {
+                "start_time": "2026-10-14T14:00:00+08:00",
+                "end_time": "2026-10-14T16:00:00+08:00",
+                "seat_id": "LIB-A301-01"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "reservation_id": "RSV-7658a015",
+                  "start_time": "2026-10-14T14:00:00+08:00",
+                  "end_time": "2026-10-14T16:00:00+08:00",
+                  "seat_id": "LIB-A301-01",
+                  "status": "active"
+                },
+                "message": "模拟预约成功，未提交学校官方系统",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.09
+            }
+          ]
+        }
+      ],
+      "record_count": 1
+    },
+    {
+      "case": "study_cancel",
+      "status": "failed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": false
+        },
+        {
+          "check": "最终状态正确",
+          "passed": false
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "前置查询齐全",
+          "passed": false
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 51.398,
+      "responses": [
+        {
+          "session_id": "aeb1226dceb34695bbbcc153ed01b9a7",
+          "status": "failed",
+          "answer": "【含模拟数据】\n本次处理已停止：模型连接失败，请稍后重试（MODEL_ERROR）。",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "get_schedule",
+              "call_id": "call_d045cf75638042618de26d",
+              "operation_id": "56e993a2afb445228f4646864eb10f1c",
+              "arguments": {
+                "date": "2026-10-14"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "date": "2026-10-14",
+                  "courses": [
+                    {
+                      "course": "数据结构",
+                      "start_time": "2026-10-14T09:00:00+08:00",
+                      "end_time": "2026-10-14T10:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟课表",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.06
+            },
+            {
+              "tool_name": "find_free_slots",
+              "call_id": "call_2e8ab8b07c854833965ee0",
+              "operation_id": "9ee85fe52c114b17aafe6ed12992e8cc",
+              "arguments": {
+                "date": "2026-10-14",
+                "duration_minutes": 120
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "slots": [
+                    {
+                      "start_time": "2026-10-14T10:00:00+08:00",
+                      "end_time": "2026-10-14T22:00:00+08:00"
+                    }
+                  ]
+                },
+                "message": "模拟空闲时段",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.09
+            }
+          ]
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "repair_followup",
+      "status": "passed",
+      "checks": [
+        {
+          "check": "信息补全前不创建待提交动作",
+          "passed": true
+        },
+        {
+          "check": "信息补全前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": true
+        },
+        {
+          "check": "报修工具与位置正确",
+          "passed": true
+        },
+        {
+          "check": "保留上轮空调不制冷故障",
+          "passed": true
+        },
+        {
+          "check": "本次确认后不出现额外待提交动作",
+          "passed": true
+        },
+        {
+          "check": "最终状态正确",
+          "passed": true
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": true
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 74.164,
+      "responses": [
+        {
+          "session_id": "45e7c1d0aa3d4d66b8e0704d6c8dc70b",
+          "status": "completed",
+          "answer": "请提供宿舍的具体位置（例如：东区3号楼405室），以便我为您创建报修工单。",
+          "pending_confirmation": null,
+          "trace": []
+        },
+        {
+          "session_id": "45e7c1d0aa3d4d66b8e0704d6c8dc70b",
+          "status": "awaiting_confirmation",
+          "answer": "请核对以下模拟操作，确认后执行：create_repair_ticket\n{\"location\": \"3号楼502室\", \"problem\": \"空调不制冷\"}",
+          "pending_confirmation": {
+            "confirmation_id": "8dfb0e436ffa4954829b8ed5a2d97461",
+            "tool_name": "create_repair_ticket",
+            "arguments": {
+              "location": "3号楼502室",
+              "problem": "空调不制冷"
+            },
+            "expires_at": "2026-10-13T09:05:00+08:00",
+            "simulated": true,
+            "message": "请核对工具名称和全部参数，确认后才执行。"
+          },
+          "trace": []
+        },
+        {
+          "session_id": "45e7c1d0aa3d4d66b8e0704d6c8dc70b",
+          "status": "completed",
+          "answer": "【含模拟数据】\n已为您创建模拟报修工单（ID: RP-09e2b420），内容为：**3号楼502室空调不制冷**，当前状态为“待处理”。\n\n⚠️ 注意：此为模拟报修，仅用于测试流程，**未实际通知学校维修部门**。如需真实报修，请通过校园App正式提交或联系宿管中心。\n\n是否需要查询该工单的后续状态？",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "create_repair_ticket",
+              "call_id": "call_07862035e90f4cf89147f0",
+              "operation_id": "5a0d5520701f43859ae93b2fffeb56ed",
+              "arguments": {
+                "location": "3号楼502室",
+                "problem": "空调不制冷"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "ticket_id": "RP-09e2b420",
+                  "location": "3号楼502室",
+                  "problem": "空调不制冷",
+                  "status": "pending"
+                },
+                "message": "已创建模拟工单，未通知学校维修人员",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.08
+            }
+          ]
+        }
+      ],
+      "record_count": 1
+    },
+    {
+      "case": "affair_sources",
+      "status": "failed",
+      "checks": [
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "只读场景不请求写操作确认",
+          "passed": true
+        },
+        {
+          "check": "本轮正常结束",
+          "passed": false
+        },
+        {
+          "check": "查询知识与办理要求",
+          "passed": true
+        },
+        {
+          "check": "回答引用来源",
+          "passed": false
+        },
+        {
+          "check": "全部业务结果保持模拟属性",
+          "passed": true
+        }
+      ],
+      "duration_seconds": 39.33,
+      "responses": [
+        {
+          "session_id": "a6e110bc27c34647a80f83da3ea494ac",
+          "status": "failed",
+          "answer": "【含模拟数据】\n本次处理已停止：模型连接失败，请稍后重试（MODEL_ERROR）。",
+          "pending_confirmation": null,
+          "trace": [
+            {
+              "tool_name": "search_campus_knowledge",
+              "call_id": "call_49007f23d94a44e8b359f7",
+              "operation_id": "de89885ccf6849f8889b279b32a74983",
+              "arguments": {
+                "query": "学生证补办材料和流程"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "sources": [
+                    {
+                      "source_id": "MOCK-POLICY-001",
+                      "title": "学生证补办演示办法（模拟资料）",
+                      "content": "准备姓名、学号和遗失说明，向学生事务中心申请补办。此内容仅用于演示。"
+                    }
+                  ]
+                },
+                "message": "模拟知识检索结果",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.1
+            },
+            {
+              "tool_name": "get_affair_requirements",
+              "call_id": "call_50a0e6fe79e244229f1b15",
+              "operation_id": "5fa72a68064c47ceb0c5ff3603cc88a6",
+              "arguments": {
+                "affair_type": "学生证补办"
+              },
+              "result": {
+                "success": true,
+                "data": {
+                  "affair_type": "学生证补办",
+                  "required_fields": [
+                    "name",
+                    "student_id",
+                    "reason"
+                  ],
+                  "materials": [
+                    "身份证明",
+                    "遗失说明"
+                  ],
+                  "steps": [
+                    "准备材料",
+                    "联系学生事务中心"
+                  ]
+                },
+                "message": "模拟办理要求",
+                "error_code": null,
+                "simulated": true,
+                "retryable": false
+              },
+              "attempts": 1,
+              "duration_ms": 0.07
+            }
+          ]
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "affair_draft",
+      "status": "failed",
+      "checks": [
+        {
+          "check": "信息补全前不创建待提交动作",
+          "passed": true
+        },
+        {
+          "check": "信息补全前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "确认前没有业务写入",
+          "passed": true
+        },
+        {
+          "check": "应产生待确认动作",
+          "passed": false
+        },
+        {
+          "check": "最终状态正确",
+          "passed": false
+        },
+        {
+          "check": "业务记录数量正确",
+          "passed": false
+        },
+        {
+          "check": "查询知识与办理要求",
+          "passed": false
+        }
+      ],
+      "duration_seconds": 0.636,
+      "responses": [
+        {
+          "session_id": "e2b9aa23dff84e5f87a27465204f4823",
+          "status": "failed",
+          "answer": "本次处理已停止：模型连接失败，请稍后重试（MODEL_ERROR）。",
+          "pending_confirmation": null,
+          "trace": []
+        }
+      ],
+      "record_count": 0
+    },
+    {
+      "case": "activity_conflict",
+      "status": "skipped",
+      "reason": "前序模型调用失败，请先修正模型配置"
+    }
+  ]
+}

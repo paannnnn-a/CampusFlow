@@ -1,4 +1,4 @@
-# A 独立开发包。为当前 Python 3.9 环境固定已测试的 LangGraph 版本；团队升级需重新验收。
+# A module: tested dependency versions for Python 3.9. Re-test before upgrading.
 langgraph==0.2.76
 langgraph-checkpoint==2.1.2
 langchain-core==0.3.86
