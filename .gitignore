@@ -9,3 +9,19 @@ __pycache__/
 *.db
 *.sqlite*
 *.log
+
+# Generated reports and exported schemas
+docs/demo_output.txt
+docs/evaluation_*.json
+docs/test_results.xml
+docs/agent_response.schema.json
+docs/tool_schemas.json
+
+# Local onboarding and separately distributed notes
+configure_key.py
+docs/aliyun_setup.md
+docs/handoff.md
+docs/changes_v*.md
+docs/test_report.md
+docs/tool_contract.md
+docs/api_contract.md

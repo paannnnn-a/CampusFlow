@@ -64,7 +64,7 @@ def main(argv=None):
         return 0
     except ModelError as exc:
         print("在线自检失败：" + str(exc))
-        print("请按 docs/aliyun_setup.md 检查 Key、地域、模型权限、余额和接口类型。")
+        print("请检查本地模型配置、Key 所属地域、模型权限、余额和接口类型。")
         return 1
     except ValueError:
         print("在线自检失败：模型返回的工具协议不符合预期，请检查接口或适配器。")
