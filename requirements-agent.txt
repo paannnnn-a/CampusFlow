@@ -3,7 +3,7 @@ langgraph==0.2.76
 langgraph-checkpoint==2.1.2
 langchain-core==0.3.86
 langgraph-sdk==0.1.74
-pydantic==2.10.6
+pydantic>=2.11.0
 httpx==0.28.1
 python-dotenv==1.0.1
 tzdata==2025.2
