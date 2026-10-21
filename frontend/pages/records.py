@@ -1,16 +1,28 @@
-# frontend/pages/records.py 的初始代码
 import streamlit as st
+import requests
 
-st.set_page_config(page_title="我的记录", page_icon="📋")
 st.title("📋 我的办理记录")
+st.write("这里展示你的预约、报修和事务记录。")
 
-st.markdown("这里将展示你在 CampusFlow 产生的所有预约、申请和报修记录。")
+API_URL = "http://127.0.0.1:8000/api/records"
 
-# 造一点假数据来占位
-mock_records = [
-    {"id": "R001", "type": "座位预约", "detail": "LIB-A301-01", "status": "已成功"},
-    {"id": "R002", "type": "活动报名", "status": "待审核"},
-    {"id": "R003", "type": "报修工单", "detail": "空调不制冷", "status": "处理中"}
-]
+try:
+    resp = requests.get(API_URL)
+    if resp.status_code == 200:
+        data = resp.json()
+        
+        st.subheader("事务申请草稿")
+        if data.get("affairs"):
+            st.dataframe(data["affairs"], use_container_width=True)
+        else:
+            st.info("暂无事务申请草稿")
 
-st.dataframe(mock_records, use_container_width=True)
+        st.subheader("报修工单")
+        if data.get("repairs"):
+            st.dataframe(data["repairs"], use_container_width=True)
+        else:
+            st.info("暂无报修工单")
+    else:
+        st.warning("获取数据失败")
+except Exception as e:
+    st.error(f"无法连接后端: {e}")
