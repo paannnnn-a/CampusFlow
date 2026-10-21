@@ -1,0 +1,21 @@
+# B 模块：RAG、校园事务与宿舍报修
+#
+# 安装：pip install -r requirements-b.txt
+# 与 requirements-agent.txt 可叠加安装，无版本冲突。
+#
+# 说明：
+# - chromadb 用范围约束而非钉死版本，避免与 D 端的 sqlalchemy 等冲突；
+#   未安装时 KnowledgeBase 会自动回退到内存索引（测试可正常跑）。
+# - pypdf 只在需要解析 PDF 知识文档时使用，缺失时给出明确提示。
+
+pydantic>=2.11.0
+tzdata>=2025.2
+
+# 向量库（可选，缺失时回退内存索引）
+chromadb>=0.5.0
+
+# PDF 知识文档解析（可选）
+pypdf>=4.0.0
+
+# 测试
+pytest>=8.3.5
