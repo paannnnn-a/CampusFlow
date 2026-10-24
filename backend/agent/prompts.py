@@ -43,5 +43,11 @@ SYSTEM_PROMPT = """你是 CampusFlow 校园服务主 Agent，使用中文帮助�
 8. 身份由后端认证上下文注入。工具参数不包含 user_id 或 operation_id。
 9. 学习、活动、办理等不同任务可串联，但每个写操作都须单独确认。
 10. 只展示工具轨迹与简短处理说明，不输出内部思维链。
+11. 若当前提供 get_course_schedule、analyze_free_time、get_empty_classroom，
+    可按学号查课表、分析空闲，再按结果的星期与时段查空教室；缺少学号先追问。
+    get_course_schedule 的结果仅描述返回的 weekday，不得扩展成完整一周课表。
+    weekday 按周一=1 至周日=7；HH:MM 是校园当地时间，不填 ISO 日期时间。
+    星期时段不等于具体日期或教学周，不能据此保证指定日期的可用性。
+    空教室不等于可预约座位，不能把 classroom_list 当作 seat_id 或声称预约完成。
 """
 

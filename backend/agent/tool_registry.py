@@ -6,8 +6,8 @@ from typing import Callable, Dict, Type
 from pydantic import BaseModel
 
 from .contracts import (
-    ActivityArgs, ActivitySearchArgs, AffairArgs, BookArgs, Context, DateArgs,
-    DraftArgs, FreeSlotArgs, IntervalArgs, KnowledgeArgs, RegistrationArgs,
+    ActivityArgs, ActivitySearchArgs, AffairArgs, BookArgs, Context, CourseScheduleArgs, DateArgs,
+    DraftArgs, EmptyClassroomArgs, FreeSlotArgs, FreeTimeArgs, IntervalArgs, KnowledgeArgs, RegistrationArgs,
     RepairArgs, ReservationArgs, TicketArgs, ToolResult,
 )
 
@@ -21,6 +21,9 @@ class ToolSpec:
 
 
 SPECS = (
+    ToolSpec("get_course_schedule", "按用户提供的学号查询课表，返回 weekday 和 course_list。不得猜测学号，也不得把单个 weekday 的结果当作整周课表。", CourseScheduleArgs),
+    ToolSpec("analyze_free_time", "按用户提供的学号分析空闲时间，返回 free_periods，每项含 weekday 和 time_range。结果只包含星期与时段，不代表某个具体日期或教学周。", FreeTimeArgs),
+    ToolSpec("get_empty_classroom", "按星期几及校园当地 HH:MM 起止时间查询空教室，返回 classroom_list。weekday 为 1（周一）至 7（周日）。空教室查询不代表可预约座位或预约成功。", EmptyClassroomArgs),
     ToolSpec("get_schedule", "查询当前用户一天的课表。", DateArgs),
     ToolSpec("find_free_slots", "计算当天 08:00–22:00 内可连续学习的空闲时间，须按用户指定上午/下午筛选。", FreeSlotArgs),
     ToolSpec("find_available_seats", "查询指定时段可用的座位。", IntervalArgs),

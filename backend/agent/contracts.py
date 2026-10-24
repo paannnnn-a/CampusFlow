@@ -60,6 +60,33 @@ class FreeSlotArgs(DateArgs):
     duration_minutes: int = Field(ge=15, le=480, strict=True)
 
 
+class StudentArgs(Contract):
+    student_id: str = Field(
+        min_length=1, max_length=100, strict=True,
+        description="用户提供的学号字符串，不得猜测；查询权限由业务层结合可信上下文校验",
+    )
+
+
+class CourseScheduleArgs(StudentArgs):
+    pass
+
+
+class FreeTimeArgs(StudentArgs):
+    pass
+
+
+class EmptyClassroomArgs(Contract):
+    weekday: int = Field(ge=1, le=7, strict=True, description="星期几：1=周一，7=周日")
+    start_time: str = Field(pattern=r"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$", description="校园当地时间 HH:MM")
+    end_time: str = Field(pattern=r"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$", description="同一天的结束时间 HH:MM，晚于 start_time")
+
+    @model_validator(mode="after")
+    def ordered(self):
+        if self.end_time <= self.start_time:
+            raise ValueError("结束时间必须晚于开始时间，且在同一天")
+        return self
+
+
 class IntervalArgs(Contract):
     start_time: AwareDatetime = Field(description="含时区 ISO 8601，例如 2026-10-14T14:00:00+08:00")
     end_time: AwareDatetime

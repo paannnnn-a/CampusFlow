@@ -43,7 +43,9 @@ class MockCampus:
     def registry(self):
         registry = ToolRegistry()
         for spec in SPECS:
-            registry.bind(spec.name, self._handler(spec), simulated=True)
+            # 契约可先于业务实现登记；只绑定实际具备的 Mock，避免向模型提供空实现。
+            if hasattr(self, spec.name):
+                registry.bind(spec.name, self._handler(spec), simulated=True)
         return registry
 
     def _handler(self, spec):

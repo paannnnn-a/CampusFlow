@@ -8,6 +8,8 @@ from backend.agent.contracts import Context, ToolResult
 from backend.agent.mock_tools import MockCampus
 from backend.agent.tool_registry import SPECS
 
+MOCK_SPECS = tuple(spec for spec in SPECS if hasattr(MockCampus, spec.name))
+
 
 @pytest.fixture
 def fixture():
@@ -20,7 +22,7 @@ def fixture():
     return campus, registry, invoke
 
 
-@pytest.mark.parametrize("spec", SPECS, ids=lambda s: s.name)
+@pytest.mark.parametrize("spec", MOCK_SPECS, ids=lambda s: s.name)
 def test_every_mock_rejects_invalid_parameters(fixture, spec):
     _, registry, _ = fixture
     # 所有接口均有必填参数；未知身份字段始终被拒绝。
@@ -28,7 +30,7 @@ def test_every_mock_rejects_invalid_parameters(fixture, spec):
         registry.invoke(spec.name, {"user_id": "victim"}, Context(user_id="u1", operation_id="op"))
 
 
-@pytest.mark.parametrize("name", [s.name for s in SPECS])
+@pytest.mark.parametrize("name", [s.name for s in MOCK_SPECS])
 def test_every_mock_has_valid_success_result(fixture, name):
     _, _, invoke = fixture
     interval = {"start_time": "2026-10-14T14:00:00+08:00", "end_time": "2026-10-14T16:00:00+08:00"}
